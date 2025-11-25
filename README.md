@@ -22,13 +22,15 @@ Tamamen modern MPP standartlarında tasarlanmış bir production-grade pipeline�
 🏗 Architecture Overview
 High-Level Pipeline
 
-End-to-end ingestion → processing → modeling → reporting akışının genel görünümü:<a href="architecture/high_level_pipeline.png">
+End-to-end ingestion → processing → modeling → reporting akışının genel görünümü:
+<a href="architecture/high_level_pipeline.png">
     <img src="architecture/high_level_pipeline.png" width="800">
 </a>
 
 Dataflow Architecture
 
-Power BI Dataflows Gen2 üzerinde yapılan ID extraction & transformation mimarisi:<a href="architecture/dataflow_architecture.png">
+Power BI Dataflows Gen2 üzerinde yapılan ID extraction & transformation mimarisi:
+<a href="architecture/dataflow_architecture.png">
     <img src="architecture/dataflow_architecture.png" width="800">
 </a>
 
@@ -43,26 +45,37 @@ Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yap
 
      
 🏗 Mimari Genel Bakış
-IMDB/TMDB API  
-     ⬇
+
+IMDB/TMDB API
+    ⬇
+     
 Dataflow (ID Extraction)
-     ⬇
+    ⬇
+     
 Lakehouse (stg tables)
-     ⬇
+    ⬇
+     
 Notebook: Dim & Bridge Builder (overwrite)
-     ⬇
+    ⬇
+     
 Notebook: Popularity Fetcher (daily append)
+    ⬇
+     
+IF(New Content) Notebook: New Content Incremental Append
      ⬇
-Notebook: New Content Incremental Append
-     ⬇
+     
 Delta Lakehouse (dbo & brg zones)
      ⬇
+     
 Semantic Models (Gold + Trend)
      ⬇
+     
 Power BI Dashboards (Analytics & Trend)
 
-📌 Yüksek seviye mimari görsel:<a href="architecture/high_level_pipeline.png">
+📌 Yüksek seviye mimari görsel:
+<a href="architecture/high_level_pipeline.png">
     <img src="architecture/high_level_pipeline.png" width="800">
+</a>
 
 🧱 Lakehouse Yapısı
 
@@ -84,25 +97,30 @@ brg	Bridge tabloları (cast, genres, directors,…)
 🧬 Dataflow
 
 Proje aynı Incremental Archiving Dataflow içerisinde 6 farklı Query kullanır:
+<a href="dataflow/queries.png">
+    <img src="dataflow/queries.png" width="20%">
+</a>
 
 İkisi stg_moviesID ve stg_SeriesID olmak üzere API'den günlük çekilen IDleri ve türleri tutan tabloları DataFlow'a çekmek için
 
-stg_contentID_version0
+stg_contentID_version0: Popüler ilk 100 Movie & 100 TV Series ID’lerini üst-üste append eder ve stg tablosuna lakehouseta replace eder
+<a href="dataflow/stg_contentID_version0.png">
+    <img src="dataflow/stg_contentID_version0.png" width="800">
+ </a>   
+ 
+stg_new_contentID: Her gün yeni eklenen (archieve'de bulunmayan) içerikleri bulur ve stg tablosuna lakehouseta replace eder
+<a href="dataflow/stg_new_contentID.png">
+    <img src="dataflow/stg_new_contentID.png" width="800">
+</a>
 
-Popüler ilk 100 Movie & 100 TV Series ID’lerini üst-üste append eder
+dim_contentID_archieve Query'si, API'den gelen unique Movies & Series ID'lerini tutan tabloyu DataFlow'a çekmek için
 
-stg_new_contentID
+Son olarakta, stg_new_content_ID Querysindeki (Archieve'de olmayan, yeni gördüğümüz film & diziler) ID'leri dim_contentID_archieve tablosuna append eden query:
 
-Her gün yeni eklenen (archieve'de bulunmayan) içerikleri bulur
+<a href="dataflow/stg_new_contentID_Append_to_dim_contentID_archieve.png">
+    <img src="dataflow/stg_new_contentID_Append_to_dim_contentID_archieve.png" width="800">
+</a>
 
-dim_contentID_archieve
-
-En az bir kez popüler olmuş ve API'den çektiğimiz unique Movies & Series ID'lerini tutan tabloyu DataFlow'a çekmek için
-
-Son olarakta, stg_new_content_ID'yi dim_contentID_archieve tablosuna append eden query bulunur
-
-📎 Tüm görseller:
-/dataflows/
 
 🧪 Notebook Görevleri
 ✔ 1. generate_popularity.py
@@ -156,8 +174,9 @@ Append to Historical Notebook
 
 Semantic Model Refresh (Gold + Trend)
 
-📎 Pipeline görseli:
-/pipelines/main_pipeline.png
+<a href="pipelines/main_pipeline.png">
+    <img src="pipelines/main_pipeline.png" width="800">
+</a>
 
 🧠 Semantic Modeller
 
