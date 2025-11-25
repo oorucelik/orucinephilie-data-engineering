@@ -19,6 +19,25 @@ Yeni içerikleri otomatik archive edip tüm Dim & Bridge modellerini günceller
 
 Tamamen modern MPP standartlarında tasarlanmış bir production-grade pipeline’dır.
 
+🏗 Architecture Overview
+High-Level Pipeline
+
+End-to-end ingestion → processing → modeling → reporting akışının genel görünümü:<a href="architecture/high_level_pipeline.png">
+    <img src="architecture/high_level_pipeline.png" width="800">
+</a>
+
+Dataflow Architecture
+
+Power BI Dataflows Gen2 üzerinde yapılan ID extraction & transformation mimarisi:<a href="architecture/dataflow_architecture.png">
+    <img src="architecture/dataflow_architecture.png" width="800">
+</a>
+
+
+Lakehouse Structure
+
+Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yapısı::<a href="architecture/lakehouse_sttructure.png">
+    <img src="architecture/lakehouse_sttructure.png" width="800">
+     
 🏗 Mimari Genel Bakış
 IMDB/TMDB API  
      ⬇
@@ -40,7 +59,8 @@ Power BI Dashboards (Analytics & Trend)
 
 📌 Yüksek seviye mimari görsel:
 
-architecture/high_level_pipeline.png
+<a href="architecture/high_level_pipeline.png">
+    <img src="architecture/high_level_pipeline.png" width="800">
 
 🧱 Lakehouse Yapısı
 
@@ -52,7 +72,11 @@ dbo	DimContent, tarihsel içerik, popularity fact tablosu, tüm DIM tabloları
 brg	Bridge tabloları (cast, genres, directors,…)
 📸 Şema çizimi
 
-/lakehouse/schemas/dbo_tables.png
+<p align="center">
+  <img src="schemas/stg_tables.png" width="30%" />
+  <img src="schemas/dbo_tables.png" width="30%" />
+  <img src="schemas/brg_tables" width="30%" />
+</p>
 
 /lakehouse/schemas/brg_tables.png
 
