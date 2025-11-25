@@ -7,10 +7,6 @@ Bu proje, IMDb popüler film ve dizi verilerini başından sonuna tamamen otomat
 
 ## Table of Contents 📚
 - [Proje Ozeti](#proje-ozeti-)
-- [Architecture Overview](#architecture-overview-)
-  - [High Level Pipeline](#high-level-pipeline-)
-  - [Dataflow Architecture](#dataflow-architecture-)
-  - [Lakehouse Structure](#lakehouse-structure-)
 - [Mimari Genel Bakis](#mimari-genel-bakis-)
 - [Lakehouse Yapisi](#lakehouse-yapisi-)
 - [Dataflow](#dataflow-)
@@ -39,33 +35,6 @@ Proje;
 - İki farklı Power BI dashboardu besler  
 
 Tamamen modern MPP standartlarında tasarlanmış bir production-grade pipeline’dır.
-
----
-
-## Architecture Overview 🏗
-
-### High Level Pipeline
-
-End-to-end ingestion → processing → modeling → reporting akışının genel görünümü:
-<a href="architecture/high_level_pipeline.png">
-    <img src="architecture/high_level_pipeline.png" width="800">
-</a>
-
-### Dataflow Architecture
-
-Power BI Dataflows Gen2 üzerinde yapılan ID extraction & transformation mimarisi:
-<a href="architecture/dataflow_architecture.png">
-    <img src="architecture/dataflow_architecture.png" width="800">
-</a>
-
-
-### Lakehouse Structure
-
-Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yapısı: 
-
-<a href="architecture/lakehouse_structure.png">
-    <img src="architecture/lakehouse_structure.png" width="300">
-</a>
 
 ---
      
