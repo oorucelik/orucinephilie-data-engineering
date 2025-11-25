@@ -35,8 +35,12 @@ Power BI Dataflows Gen2 üzerinde yapılan ID extraction & transformation mimari
 
 Lakehouse Structure
 
-Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yapısı::<a href="architecture/lakehouse_sttructure.png">
-    <img src="architecture/lakehouse_sttructure.png" width="800">
+Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yapısı: 
+
+<a href="architecture/lakehouse_structure.png">
+    <img src="architecture/lakehouse_structure.png" width="300">
+</a>
+
      
 🏗 Mimari Genel Bakış
 IMDB/TMDB API  
@@ -57,9 +61,7 @@ Semantic Models (Gold + Trend)
      ⬇
 Power BI Dashboards (Analytics & Trend)
 
-📌 Yüksek seviye mimari görsel:
-
-<a href="architecture/high_level_pipeline.png">
+📌 Yüksek seviye mimari görsel:<a href="architecture/high_level_pipeline.png">
     <img src="architecture/high_level_pipeline.png" width="800">
 
 🧱 Lakehouse Yapısı
@@ -73,16 +75,11 @@ brg	Bridge tabloları (cast, genres, directors,…)
 📸 Şema çizimi
 
 <p align="center">
-  <img src="schemas/stg_tables.png" width="30%" />
-  <img src="schemas/dbo_tables.png" width="30%" />
-  <img src="schemas/brg_tables" width="30%" />
+  <img src="lakehouse/schemas/stg_tables.png" width="20%" />
+  <img src="lakehouse/schemas/brg_tables.png" width="20%" />
+  <img src="lakehouse/schemas/dbo_tables.png" width="20%" />
+  <img src="lakehouse/schemas/dbo_views.png" width="20%" />
 </p>
-
-/lakehouse/schemas/brg_tables.png
-
-/lakehouse/schemas/stg_tables.png
-
-/lakehouse/schemas/dbo_views.png
 
 🧬 Dataflow
 
