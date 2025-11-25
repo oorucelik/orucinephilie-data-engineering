@@ -1,7 +1,7 @@
 📌 IMDb Fabric Analytics Pipeline
 Microsoft Fabric • Lakehouse • Delta • Dataflows Gen2 • Pipelines • Power BI
 ## 📚 Table of Contents
-- [Proje Özeti](#-imdb-fabric-analytics-pipeline)
+- [IMDb Fabric Analytics Pipeline](#-imdb-fabric-analytics-pipeline)
 - [Architecture Overview](#-architecture-overview)
   - [High-Level Pipeline](#high-level-pipeline)
   - [Dataflow Architecture](#dataflow-architecture)
@@ -19,7 +19,7 @@ Microsoft Fabric • Lakehouse • Delta • Dataflows Gen2 • Pipelines • Po
   - [Trend Model Dashboard](#trend-model-dashboard)
 - [Teknolojiler](#-teknolojiler)
 - [Kurulum & Çalıştırma](#-kurulum--çalıştırma)
-- [Kazandırdıkları](#bu-proje-ile)
+- [Bu Proje ile Kazanımlar](#bu-proje-ile)
 - [Katkı & İletişim](#-katkı--iletişim)
 
 
