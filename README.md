@@ -1,55 +1,57 @@
-📌 IMDb Fabric Analytics Pipeline
+# IMDb Fabric Analytics Pipeline 🎬
 Microsoft Fabric • Lakehouse • Delta • Dataflows Gen2 • Pipelines • Power BI
-## 📚 Table of Contents
-- [IMDb Fabric Analytics Pipeline](#-imdb-fabric-analytics-pipeline)
-- [Architecture Overview](#-architecture-overview)
-  - [High-Level Pipeline](#high-level-pipeline)
-  - [Dataflow Architecture](#dataflow-architecture)
-  - [Lakehouse Structure](#lakehouse-structure)
-- [Mimari Genel Bakış](#-mimari-genel-bakış)
-- [Lakehouse Yapısı](#-lakehouse-yapısı)
-- [Dataflow](#-dataflow)
-- [Notebook Görevleri](#-notebook-görevleri)
-- [Pipeline Mimarisi](#-pipeline-mimarisi)
-- [Semantic Modeller](#-semantic-modeller)
-  - [Gold Semantic Model](#gold-semantic-model)
-  - [Trend Semantic Model](#trend-semantic-model)
-- [Dashboard Galerisi](#-dashboard-galerisi)
-  - [Gold Model Dashboard](#gold-model-dashboard)
-  - [Trend Model Dashboard](#trend-model-dashboard)
-- [Teknolojiler](#-teknolojiler)
-- [Kurulum & Çalıştırma](#-kurulum--çalıştırma)
-- [Bu Proje ile Kazanımlar](#bu-proje-ile)
-- [Katkı & İletişim](#-katkı--iletişim)
-
 
 Bu proje, IMDb popüler film ve dizi verilerini başından sonuna tamamen otomatik işleyen, Microsoft Fabric ekosistemi üzerinde tasarlanmış uçtan uca bir Modern Data Engineering projesidir.
 
+---
+
+## Table of Contents 📚
+- [Proje Özeti](#proje-ozeti-)
+- [Architecture Overview](#architecture-overview-)
+  - [High-Level Pipeline](#high-level-pipeline-)
+  - [Dataflow Architecture](#dataflow-architecture-)
+  - [Lakehouse Structure](#lakehouse-structure-)
+- [Mimari Genel Bakış](#mimari-genel-bakis-)
+- [Lakehouse Yapısı](#lakehouse-yapisi-)
+- [Dataflow](#dataflow-)
+- [Notebook Görevleri](#notebook-gorevleri-)
+- [Pipeline Mimarisi](#pipeline-mimarisi-)
+- [Semantic Modeller](#semantic-modeller-)
+  - [Gold Semantic Model](#gold-semantic-model-)
+  - [Trend Semantic Model](#trend-semantic-model-)
+- [Dashboard Galerisi](#dashboard-galerisi-)
+- [Teknolojiler](#teknolojiler-)
+- [Kurulum & Çalıştırma](#kurulum--calistirma-)
+- [Bu Proje ile Kazanımlar](#bu-proje-ile-kazanimlar-)
+- [Katkı & İletişim](#katki--iletisim-)
+
+---
+
+## Proje Özeti 📌
+
 Proje;
 
-API’den veri toplar
-
-Lakehouse üzerinde staging → curated (dbo) → bridge zonelerini oluşturur
-
-Günlük trend/popularity analizlerini hesaplar
-
-Yeni içerikleri otomatik archive edip tüm Dim & Bridge modellerini günceller
-
-İki farklı semantic model (Gold & Trend) üzerinden
-
-İki farklı profesyonel Power BI dashboardu besler
+- API’den veri toplar  
+- Lakehouse üzerinde staging → curated (dbo) → bridge zonelerini oluşturur  
+- Günlük trend/popularity analizlerini hesaplar  
+- Yeni içerikleri otomatik archive edip tüm Dim & Bridge modellerini günceller  
+- İki farklı semantic model (Gold & Trend) ile  
+- İki farklı Power BI dashboardu besler  
 
 Tamamen modern MPP standartlarında tasarlanmış bir production-grade pipeline’dır.
 
-🏗 Architecture Overview
-High-Level Pipeline
+---
+
+## Architecture Overview 🏗
+
+### High-Level Pipeline
 
 End-to-end ingestion → processing → modeling → reporting akışının genel görünümü:
 <a href="architecture/high_level_pipeline.png">
     <img src="architecture/high_level_pipeline.png" width="800">
 </a>
 
-Dataflow Architecture
+### Dataflow Architecture
 
 Power BI Dataflows Gen2 üzerinde yapılan ID extraction & transformation mimarisi:
 <a href="architecture/dataflow_architecture.png">
@@ -57,7 +59,7 @@ Power BI Dataflows Gen2 üzerinde yapılan ID extraction & transformation mimari
 </a>
 
 
-Lakehouse Structure
+### Lakehouse Structure
 
 Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yapısı: 
 
@@ -65,49 +67,42 @@ Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yap
     <img src="architecture/lakehouse_structure.png" width="300">
 </a>
 
+---
      
-🏗 Mimari Genel Bakış
+## Mimari Genel Bakış 🧭
 
-IMDB/TMDB API
-    ⬇
-     
-Dataflow (ID Extraction)
-    ⬇
-     
-Lakehouse (stg tables)
-    ⬇
-     
-Notebook: Dim & Bridge Builder (overwrite)
-    ⬇
-     
-Notebook: Popularity Fetcher (daily append)
-    ⬇
-     
-IF(New Content) Notebook: New Content Incremental Append
-     ⬇
-     
-Delta Lakehouse (dbo & brg zones)
-     ⬇
-     
-Semantic Models (Gold + Trend)
-     ⬇
-     
-Power BI Dashboards (Analytics & Trend)
+IMDB/TMDB API  
+⬇  
+Dataflow (ID Extraction)  
+⬇  
+Lakehouse (stg tables)  
+⬇  
+Notebook: Dim & Bridge Builder  
+⬇  
+Notebook: Popularity Fetcher  
+⬇  
+If New Content → Incremental Append  
+⬇  
+Lakehouse (dbo & brg)  
+⬇  
+Semantic Models  
+⬇  
+Power BI Dashboards  
+
+---
 
 📌 Yüksek seviye mimari görsel:
 <a href="architecture/high_level_pipeline.png">
     <img src="architecture/high_level_pipeline.png" width="800">
 </a>
 
-🧱 Lakehouse Yapısı
+## Lakehouse Yapısı 🧱
 
-Lakehouse 3 ana zone ile tasarlandı:
-
-Zone	Açıklama
-stg	API’den gelen ham ID listeleri & yeni içerik ID’leri
-dbo	DimContent, tarihsel içerik, popularity fact tablosu, tüm DIM tabloları
-brg	Bridge tabloları (cast, genres, directors,…)
-📸 Şema çizimi
+| Zone | Açıklama |
+|------|----------|
+| stg | API’den gelen ham ID listeleri & yeni içerikler |
+| dbo | DimContent, FactContentPopularity, tüm DIM tabloları |
+| brg | Bridge tabloları (cast, directors, genres…) |
 
 <p align="center">
   <img src="lakehouse/schemas/stg_tables.png" width="20%" />
@@ -116,7 +111,9 @@ brg	Bridge tabloları (cast, genres, directors,…)
   <img src="lakehouse/schemas/dbo_views.png" width="20%" />
 </p>
 
-🧬 Dataflow
+---
+
+## Dataflow 🧬
 
 Proje aynı Incremental Archiving Dataflow içerisinde 6 farklı Query kullanır:
 <a href="dataflow/queries.png">
@@ -143,8 +140,10 @@ Son olarakta, stg_new_content_ID Querysindeki (Archieve'de olmayan, yeni gördü
     <img src="dataflow/stg_new_contentID_Append_to_dim_contentID_archieve.png" width="800">
 </a>
 
+---
 
-🧪 Notebook Görevleri
+## Notebook Görevleri 🧪
+
 ✔ 1. generate_popularity.py
 
 IMDb → TMDB ID eşlemesi yapar
@@ -176,31 +175,35 @@ dimcontenthistorical tablosuna append eder
 /notebooks/dim_bridge/
 /notebooks/incremental/
 
-🔃 Pipeline Mimarisi
+---
+
+## Pipeline Mimarisi 🔃
 
 Ana pipeline adımları:
 
-Get Top 100 IDs
-
-Lookup — Compare DimContentHistorical BEFORE/AFTER
-
-Incremental Archive Dataflow
-
-Get TMDB Popularity Notebook
-
-Create Dim & Bridge Tables Notebook
-
-IfCondition: New Content?
-
-Append to Historical Notebook
-
+Get Top 100 IDs  
+⬇  
+Lookup — Compare DimContentHistorical BEFORE/AFTER  
+⬇
+Incremental Archive Dataflow  
+⬇
+Get TMDB Popularity Notebook  
+⬇
+Create Dim & Bridge Tables Notebook  
+⬇
+IfCondition: New Content?  
+⬇
+Append to Historical Notebook  
+⬇
 Semantic Model Refresh (Gold + Trend)
 
 <a href="pipelines/main_pipeline.png">
     <img src="pipelines/main_pipeline.png" width="800">
 </a>
 
-🧠 Semantic Modeller
+---
+
+## Semantic Modeller 🧠
 
 Proje iki farklı semantic model kullanır:
 
@@ -236,7 +239,9 @@ vw_joined_today
 
 vw_dropped_today
 
-📊 Dashboard Galerisi
+---
+
+## Dashboard Galerisi 📊
 
 Tüm dashboardlar PNG formatında eklenmiştir.
 
@@ -260,6 +265,8 @@ Tüm dashboardlar PNG formatında eklenmiştir.
   <img src="dashboards/gold/Landing Page - Series.png" width="33%" />
 </p>
 
+---
+
 📈 Trend Model Dashboard
 
 Rank & Trend Analysis Dashboard (Daily/Weekly Insights)
@@ -268,21 +275,27 @@ Rank & Trend Analysis Dashboard (Daily/Weekly Insights)
     <img src="dashboards/trend/Rank_Trend_Landing.png" width="800">
 </a>
 
-🛠 Teknolojiler
-Katman	Teknoloji
-Storage	OneLake / Delta Lake
-ETL	Dataflows Gen2, Notebook (Python), Pipelines
-Compute	Fabric Notebook Kernel
-Modeling	Power BI Semantic Models
-Analytics	Power BI Dashboards
-APIs	IMDb API, TMDB API
-Format	Delta Tables, Parquet
+---
 
+## Teknolojiler 🛠
 
-🚀 Kurulum & Çalıştırma
+| Katman | Teknoloji |
+|--------|-----------|
+| Storage | OneLake, Delta Lake |
+| ETL | Dataflows Gen2, Notebook (Python), Pipelines |
+| Compute | Fabric Notebook Kernel(Python, PySpark, SparkSQL) |
+| Modeling | Power BI Semantic Models |
+| Analytics | Power BI Dashboards |
+| APIs | IMDb API, TMDB API |
+
+---
+
+## Kurulum & Çalıştırma 🚀
 
 1️⃣ Repo’yu Klonla
+```
 git clone https://github.com/oorucelik/orucinephilie-data-engineering
+```
 
 2️⃣ Fabric Lakehouse içinde aşağıdaki klasör yapısını oluştur
 
@@ -308,7 +321,9 @@ Trend
 
 7️⃣ Dashboardları Publish et
 
-🧭Bu proje ile:
+---
+
+## Bu Proje ile Kazanımlar 🧠
 
 ✔ Modern Data Engineering lifecycle
 ✔ Lakehouse mimarisi
@@ -322,9 +337,9 @@ Trend
 ✔ Trend analiz mimarisi
 ✔ Power BI advanced UI/UX
 
-başlıklarında uzman seviyede yetkinlik sergilersin.
+---
 
-🙌 Katkı & İletişim
+## Katkı & İletişim 🙌
 
 Bu repo, Microsoft Fabric üzerinde end-to-end gerçek dünya deneyimini anlatan örnek bir projedir.
 Pull request'lere ve önerilere açıktır.
