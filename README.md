@@ -294,7 +294,7 @@ Rank & Trend Analysis Dashboard (Daily/Weekly Insights)
 
 1️⃣ Repo’yu Klonla
 ```
-git clone https://github.com/oorucelik/orucinephilie-data-engineering
+git clone https://github.com/oorucelik/imdb-fabric-data-engineering
 ```
 
 2️⃣ Fabric Lakehouse içinde aşağıdaki klasör yapısını oluştur
