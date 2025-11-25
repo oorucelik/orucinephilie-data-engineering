@@ -6,28 +6,28 @@ Bu proje, IMDb popüler film ve dizi verilerini başından sonuna tamamen otomat
 ---
 
 ## Table of Contents 📚
-- [Proje Özeti](#proje-ozeti-)
+- [Proje Ozeti](#proje-ozeti-)
 - [Architecture Overview](#architecture-overview-)
-  - [High-Level Pipeline](#high-level-pipeline-)
+  - [High Level Pipeline](#high-level-pipeline-)
   - [Dataflow Architecture](#dataflow-architecture-)
   - [Lakehouse Structure](#lakehouse-structure-)
-- [Mimari Genel Bakış](#mimari-genel-bakis-)
-- [Lakehouse Yapısı](#lakehouse-yapisi-)
+- [Mimari Genel Bakis](#mimari-genel-bakis-)
+- [Lakehouse Yapisi](#lakehouse-yapisi-)
 - [Dataflow](#dataflow-)
-- [Notebook Görevleri](#notebook-gorevleri-)
+- [Notebook Gorevleri](#notebook-gorevleri-)
 - [Pipeline Mimarisi](#pipeline-mimarisi-)
 - [Semantic Modeller](#semantic-modeller-)
   - [Gold Semantic Model](#gold-semantic-model-)
   - [Trend Semantic Model](#trend-semantic-model-)
 - [Dashboard Galerisi](#dashboard-galerisi-)
 - [Teknolojiler](#teknolojiler-)
-- [Kurulum & Çalıştırma](#kurulum--calistirma-)
-- [Bu Proje ile Kazanımlar](#bu-proje-ile-kazanimlar-)
-- [Katkı & İletişim](#katki--iletisim-)
+- [Kurulum & Calistirma](#kurulum--calistirma-)
+- [Bu Proje ile Kazanimlar](#bu-proje-ile-kazanimlar-)
+- [Katki & iletisim](#katki--iletisim-)
 
 ---
 
-## Proje Özeti 📌
+## Proje Ozeti 📌
 
 Proje;
 
@@ -44,7 +44,7 @@ Tamamen modern MPP standartlarında tasarlanmış bir production-grade pipeline�
 
 ## Architecture Overview 🏗
 
-### High-Level Pipeline
+### High Level Pipeline
 
 End-to-end ingestion → processing → modeling → reporting akışının genel görünümü:
 <a href="architecture/high_level_pipeline.png">
@@ -69,7 +69,7 @@ Delta Lake tablolamaları: staging (stg), curated (dbo) ve bridge (brg) zone yap
 
 ---
      
-## Mimari Genel Bakış 🧭
+## Mimari Genel Bakis 🧭
 
 IMDB/TMDB API  
 ⬇  
@@ -96,7 +96,7 @@ Power BI Dashboards
     <img src="architecture/high_level_pipeline.png" width="800">
 </a>
 
-## Lakehouse Yapısı 🧱
+## Lakehouse Yapisi 🧱
 
 | Zone | Açıklama |
 |------|----------|
@@ -142,7 +142,7 @@ Son olarakta, stg_new_content_ID Querysindeki (Archieve'de olmayan, yeni gördü
 
 ---
 
-## Notebook Görevleri 🧪
+## Notebook Gorevleri 🧪
 
 ✔ 1. generate_popularity.py
 
@@ -290,7 +290,7 @@ Rank & Trend Analysis Dashboard (Daily/Weekly Insights)
 
 ---
 
-## Kurulum & Çalıştırma 🚀
+## Kurulum & Calistirma 🚀
 
 1️⃣ Repo’yu Klonla
 ```
@@ -323,7 +323,7 @@ Trend
 
 ---
 
-## Bu Proje ile Kazanımlar 🧠
+## Bu Proje ile Kazanimlar 🧠
 
 ✔ Modern Data Engineering lifecycle
 ✔ Lakehouse mimarisi
@@ -339,7 +339,7 @@ Trend
 
 ---
 
-## Katkı & İletişim 🙌
+## Katki & iletisim 🙌
 
 Bu repo, Microsoft Fabric üzerinde end-to-end gerçek dünya deneyimini anlatan örnek bir projedir.
 Pull request'lere ve önerilere açıktır.
